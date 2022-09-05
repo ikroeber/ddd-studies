@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace DDDStudies.Core.Domain
 {
   [Serializable]
-  internal class DomainException : Exception
+  public class DomainException : Exception
   {
     public DomainException()
     {
@@ -20,6 +20,11 @@ namespace DDDStudies.Core.Domain
 
     protected DomainException(SerializationInfo info, StreamingContext context) : base(info, context)
     {
+    }
+
+    public override string ToString()
+    {
+      return "Domain Error: " + base.ToString();
     }
   }
 }

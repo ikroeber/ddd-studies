@@ -7,6 +7,10 @@ namespace DDDStudies.Core.Domain
   {
     public Name(string firstName, string lastName)
     {
+      if (string.IsNullOrWhiteSpace(firstName)
+        || string.IsNullOrWhiteSpace(lastName)
+      )
+        throw new DomainException("Both first and last names must be provided!");
       FirstName = firstName;
       LastName = lastName;
     }
