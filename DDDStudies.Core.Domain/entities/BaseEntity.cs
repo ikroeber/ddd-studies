@@ -2,8 +2,8 @@ namespace DDDStudies.Core.Domain
 {
   public abstract class BaseEntity
   {
-    public UniqueId Id { get; set; }
+    public BaseEntity(UniqueId id) { Id = id; }
 
-    protected BaseEntity(UniqueId id) { Id = id; }
+    public UniqueId Id { get; set; }
   }
 }

@@ -1,66 +1,51 @@
 using System;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DDDStudies.Core.Domain
 {
-  public abstract class ValueObject<T>
+  public abstract class ValueObject
   {
-    public T Value { get; private set; }
-
-    public ValueObject(T value)
+    protected static bool EqualOperator(ValueObject left, ValueObject right)
     {
-      Value = value;
+      return ReferenceEquals(left, right)
+        || (left is not null && right is not null && left.Equals(right));
     }
 
-    protected bool ValueIsEqual(T value)
+    protected static bool NotEqualOperator(ValueObject left, ValueObject right)
     {
-      return Value.Equals(value);
+      return !EqualOperator(left, right);
     }
 
-    private bool TypesAreEqual(object obj)
-    {
-      if (obj == null) { return false; }
-      if (obj.GetType() != typeof(ValueObject<T>)) { return false; }
-
-      var objValue = ((ValueObject<T>)obj).Value;
-
-      if (Value == null || objValue == null) { return false; }
-
-      var value1 = ((ValueObject<T>)obj1).Value;
-      var value2 = ((ValueObject<T>)obj2).Value;
-
-      if (value1.GetType() == value2.GetType()) { return false; }
-
-      return ValuesAreEqual();
-    }
+    protected abstract IEnumerable<object> GetEqualityComponents();
 
     public override bool Equals(object obj)
     {
-      return ValueObjectEquals(this, obj);
-    }
+      if (obj.GetType() != GetType())
+      {
+        return false;
+      }
 
-    public override string ToString()
-    {
-      return Value.ToString();
+      ValueObject other = (ValueObject)obj;
+
+      return GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
     }
 
     public override int GetHashCode()
     {
-      return Value.GetHashCode();
+      return GetEqualityComponents()
+          .Select(x => x != null ? x.GetHashCode() : 0)
+          .Aggregate((x, y) => x ^ y);
     }
 
-    public static bool operator ==(ValueObject<T> obj1, ValueObject<T> obj2)
+    public static bool operator ==(ValueObject obj1, ValueObject obj2)
     {
-      if (ReferenceEquals(obj1, obj2)) { return true; }
-      if (obj1 == null) { return false; }
-
-      return ValueObjectEquals(obj1, obj2);
+      return EqualOperator(obj1, obj2);
     }
 
-    public static bool operator !=(ValueObject<T> obj1, ValueObject<T> obj2)
+    public static bool operator !=(ValueObject obj1, ValueObject obj2)
     {
-      return !ValueObjectEquals(obj1, obj2);
+      return NotEqualOperator(obj1, obj2);
     }
   }
 }
