@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DDDStudies.Core.Domain
+namespace DDDStudies.Core.Domain.ValueObjects
 {
   public abstract class ValueObject
   {

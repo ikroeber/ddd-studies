@@ -1,7 +1,9 @@
-﻿using System;
+﻿using DDDStudies.Core.Domain.Events;
+using DDDStudies.Core.Domain.ValueObjects;
+using System;
 using System.Collections.Generic;
 
-namespace DDDStudies.Core.Domain
+namespace DDDStudies.Core.Domain.Entities
 {
   public class AggregateRoot : BaseEntity
   {

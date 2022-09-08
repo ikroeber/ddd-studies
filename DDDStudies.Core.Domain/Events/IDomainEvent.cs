@@ -1,4 +1,4 @@
-namespace DDDStudies.Core.Domain
+namespace DDDStudies.Core.Domain.Events
 {
   public interface IDomainEvent { }
 }

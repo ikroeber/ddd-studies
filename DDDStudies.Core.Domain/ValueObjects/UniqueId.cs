@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DDDStudies.Core.Domain
+namespace DDDStudies.Core.Domain.ValueObjects
 {
   public class UniqueId : ValueObject
   {

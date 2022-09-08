@@ -1,4 +1,6 @@
-namespace DDDStudies.Core.Domain
+using DDDStudies.Core.Domain.ValueObjects;
+
+namespace DDDStudies.Core.Domain.Entities
 {
   public abstract class BaseEntity
   {

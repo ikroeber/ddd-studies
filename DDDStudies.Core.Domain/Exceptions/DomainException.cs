@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace DDDStudies.Core.Domain
+namespace DDDStudies.Core.Domain.Exceptions
 {
   [Serializable]
   public class DomainException : Exception
